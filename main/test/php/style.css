@@ -1,0 +1,131 @@
+
+body {
+  background-color: #3b4150;
+  font-family: arial, sans-serif;
+  color: #cdcdcd;
+}
+
+/* 차트 가로길이 */ 
+#bar-chart {
+  height: 380px;
+  width: 90%;
+  position: relative;
+  margin: 10px auto 0;
+}
+#bar-chart * {
+  box-sizing: border-box;
+}
+#bar-chart .graph {
+  height: 283px;
+  position: relative;
+}
+#bar-chart .bars {
+  height: 253px;
+  padding: 0 2%;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+#bar-chart .bar-group {  /*전체적인 그래프 크기 10% 기준*/
+  display: block;
+  float: left;
+  height: 100%;
+  position: relative;
+  width: 12%;
+}
+#bar-chart .bar-group .bar { /* 막대 크기 50%기준 */
+  box-shadow: 1px 0 2px rgba(0, 0, 0, 0.15);
+  border: 1px solid #2d2d2d;
+  border-radius: 3px 3px 0 0;
+  bottom: 0;
+  cursor: pointer;
+  height: 0;
+  position: absolute;
+  text-align: center;
+  width: 73%;
+  right: 9%;
+}
+
+#bar-chart ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#bar-chart .x-axis {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+
+#bar-chart .x-axis li {
+  float: left;
+  font-size: 11px;
+  width: 11%;
+  position: relative;
+  text-align: center;
+  left: 2%;
+  margin-left: 6px;
+
+}
+
+#bar-chart .y-axis {
+  position: absolute;
+  text-align: right;
+  width: 100%;
+}
+#bar-chart .y-axis li {
+  border-top: 1px solid #4e5464;
+  display: block;
+  height: 63.25px;
+  width: 100%;
+}
+#bar-chart .y-axis li span {
+  display: block;
+  font-size: 11px;
+  margin: -10px 0 0 -60px;
+  padding: 0 10px;
+  width: 40px;
+}
+
+#bar-chart .stat-1 {
+  background-image: -webkit-linear-gradient(left, #ff4500 0%, #ff4500 47%, #cf3a02 50%, #cf3a02 100%);
+  background-image: linear-gradient(to right, #ff4500 0%, #ff4500 47%, #cf3a02 50%, #cf3a02 100%);
+}
+#bar-chart .stat-2 {
+  background-image: -webkit-linear-gradient(left, #b8f123 0%, #b8f123 47%, #79a602 50%, #79a602 100%);
+  background-image: linear-gradient(to right, #b8f123 0%, #b8f123 47%, #79a602 50%, #79a602 100%);
+}
+#bar-chart .stat-3 {
+  background-image: -webkit-linear-gradient(left, #00c5ff 0%, #00c5ff 47%, #0383a9 50%, #0383a9 100%);
+  background-image: linear-gradient(to right, #00c5ff 0%, #00c5ff 47%, #0383a9 50%, #0383a9 100%);
+}
+
+@-webkit-keyframes blink {
+  0% {opacity: 0}
+  49%{opacity: 0}
+  50% {opacity: 1}
+  }
+  
+@-moz-keyframes blink{ 
+  0% {opacity: 0}
+  49%{opacity: 0}
+  50% {opacity: 1}
+  }
+  
+@keyframes blink{
+  0% {opacity: 0}
+  49%{opacity: 0}
+  50% {opacity: 1}
+  }
+  
+
+.blink {
+  -webkit-animation:blink 0.5s ease-in-out infinite alternate; 
+  -moz-animation:blink 0.5s ease-in-out infinite alternate;
+  animation:blink 0.5s ease-in-out infinite alternate;
+}
+.unblink {
+  -webkit-animation:blink 0s ease-in-out infinite alternate; 
+  -moz-animation:blink 0s ease-in-out infinite alternate;
+  animation:blink 0s ease-in-out infinite alternate;
+}

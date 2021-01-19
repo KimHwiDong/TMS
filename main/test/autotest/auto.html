@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>auto reset Test</title>
+    <script src="./auto.js"></script>
+    <link rel="stylesheet" href="./auto.css">
+    <audio loop id='audio_play' src='./test.wav'></audio>
+</head>
+
+<body>
+
+    <div id="maincontainer">
+        <div>
+            <input type="checkbox" name="nomal" id="checkbox" onclick="play();changeClass();" />
+            <label for="checkbox"><span></span></label>
+        </div>
+
+        <br><br>
+
+        <div id="channelcontainer">
+            <span id="img" class="image blinking"> channel 01 </span>
+            
+        </div>
+
+        <div id="buttoncontainer">
+            <button onclick="next();">ack</button>
+        </div>
+        <div>
+            <select name="sequence" onchange="location.href=this.value">
+                <option value="">Select a Sequence</option>
+                <option value="C:\dongwook\study\test\manualtest\manual.html">Manual Reset</option>
+                <option value="C:\dongwook\study\test\autotest\auto.html">Auto Reset</option>
+            </select>
+        </div>
+    </div>
+
+</body>
+
+</html>
