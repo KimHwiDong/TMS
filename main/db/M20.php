@@ -67,7 +67,7 @@
 
 	switch ($M_mode_result->measure_mode) {
 		
-		case '0':
+		case '2':
 			# code...
 				echo "시료 체취 중....\n";
 				echo "<br/>";
@@ -128,9 +128,9 @@
 				if($DL_S_row_value['DL_status'] == 0){
 						include('test_json.php');
 						TSP('M20',$SO2_code,$SO2,$SO2_Name);
-						TSP('M20',$TSP_code,$TSP,$TSP_Name);
-						TSP('M20',$NOX_code,$NOX,$NOX_Name);
-						TSP('M20',$HCL_code,$HCL,$HCL_Name);
+					 TSP('M20',$TSP_code,$TSP,$TSP_Name);
+						 TSP('M20',$NOX_code,$NOX,$NOX_Name);
+						 TSP('M20',$HCL_code,$HCL,$HCL_Name);
 						
 								
 				}

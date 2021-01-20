@@ -30,7 +30,7 @@ function Send_5avg($store,$M_num){
 			# code...
 			$Time = $Time_row['measure_date_end'];
 		}
-
+ 
 
 		//가스 종료 가져 오기
 		$gas_count = "SELECT count(distinct(data_code)) from 5avg_data_info where machine_num = '".$M_num."';";
@@ -38,27 +38,30 @@ function Send_5avg($store,$M_num){
 		$row2 = mysqli_fetch_array($result_set2);
 		$count = $row2['count(distinct(data_code))'];
 
-		$sql1 = "SELECT distinct(A.data_code), A.data_name, A.data_value,A.control, A.STATUS from 5avg_data_info A, 5avg_data_info B where A.machine_num = '".$M_num."' and A.measure_date_end = B.measure_date_end order by A.measure_date_end desc limit 0,1;";
+		$sql1 = "SELECT (A.data_code), A.data_name, A.data_value,A.control, A.STATUS from 5avg_data_info A, 5avg_data_info B where A.machine_num = '".$M_num."' and A.measure_date_end = B.measure_date_end order by A.measure_date_end desc limit 0,1;";
 		$sql1_set =  mysqli_query($conn, $sql1);
 		$sql1_row =  mysqli_fetch_array($sql1_set);
 
-		$sql2 = "SELECT distinct(A.data_code), A.data_name, A.data_value,A.control, A.STATUS from 5avg_data_info A, 5avg_data_info B where A.machine_num = '".$M_num."' and A.measure_date_end = B.measure_date_end order by A.measure_date_end desc limit 1,1;";
+		$sql2 = "SELECT (A.data_code), A.data_name, A.data_value,A.control, A.STATUS from 5avg_data_info A, 5avg_data_info B where A.machine_num = '".$M_num."' and A.measure_date_end = B.measure_date_end order by A.measure_date_end desc limit 1,1;";
 		$sql2_set =  mysqli_query($conn, $sql2);
 		$sql2_row =  mysqli_fetch_array($sql2_set);
 		//1번쨰 2번쨰 가스 타입이 같으면 검색 하지 않게 하는 코드 문입니다
 		if($sql1_row['data_code'] == $sql2_row['data_code']){
 			$count = 1;
+			echo "string";
+		}else{
+			$count = $row2['count(distinct(data_code))'];
 		}
-		echo $count;
+		echo $count."입니다";
 
 
-		for ($i=0; $i < $count; $i++) { 
+		for ($i=0; $i <= $count; $i++) { 
 			# code...
-			$sql = "SELECT distinct(A.data_code), A.data_name, A.data_value,A.control, A.STATUS from 5avg_data_info A, 5avg_data_info B where A.machine_num = '".$M_num."' and A.measure_date_end = B.measure_date_end order by A.measure_date_end desc limit ".$i.",1;";
+			$sql = "SELECT (A.data_code), A.data_name, A.data_value,A.control, A.STATUS from 5avg_data_info A, 5avg_data_info B where A.machine_num = '".$M_num."' and A.measure_date_end = B.measure_date_end order by A.measure_date_end desc limit ".$i.";";
 			$result_set = mysqli_query($conn, $sql);
-			
+				$MMM = " ";
 				while ($row = mysqli_fetch_assoc($result_set)){
-				$MMM = "";
+			
      			  $MMM .= $row['data_code'].$row['data_value'].$row['STATUS'].$row['control'];
 
    }
@@ -71,6 +74,7 @@ function Send_5avg($store,$M_num){
 					echo "<br/>";
 					echo $msg1;
 					$len = strlen($msg1);
+					echo "<br/>";
 					echo "길이 : ".$len;
 					$a = ' ';
 					for($i =0; $i< $len; $i ++ ){
@@ -119,26 +123,30 @@ function Send_5avg($store,$M_num){
 		$row2 = mysqli_fetch_array($result_set2);
 		$count = $row2['count(distinct(data_code))'];
 
-		$sql1 = "SELECT distinct(A.data_code), A.data_name, A.data_value,A.control, A.STATUS from 30avg_data_info A, 30avg_data_info B where A.machine_num = '".$M_num."' and A.measure_date_end = B.measure_date_end order by A.measure_date_end desc limit 0,1;";
+		$sql1 = "SELECT (A.data_code), A.data_name, A.data_value,A.control, A.STATUS from 30avg_data_info A, 30avg_data_info B where A.machine_num = '".$M_num."' and A.measure_date_end = B.measure_date_end order by A.measure_date_end desc limit 0,1;";
 		$sql1_set =  mysqli_query($conn, $sql1);
 		$sql1_row =  mysqli_fetch_array($sql1_set);
 
-		$sql2 = "SELECT distinct(A.data_code), A.data_name, A.data_value,A.control, A.STATUS from 30avg_data_info A, 30avg_data_info B where A.machine_num = '".$M_num."' and A.measure_date_end = B.measure_date_end order by A.measure_date_end desc limit 1,1;";
+		$sql2 = "SELECT (A.data_code), A.data_name, A.data_value,A.control, A.STATUS from 30avg_data_info A, 30avg_data_info B where A.machine_num = '".$M_num."' and A.measure_date_end = B.measure_date_end order by A.measure_date_end desc limit 1,1;";
 		$sql2_set =  mysqli_query($conn, $sql2);
 		$sql2_row =  mysqli_fetch_array($sql2_set);
 		//1번쨰 2번쨰 가스 타입이 같으면 검색 하지 않게 하는 코드 문입니다
 		if($sql1_row['data_code'] == $sql2_row['data_code']){
 			$count = 1;
+			echo "string";
+		}else{
+			$count = $row2['count(distinct(data_code))'];
 		}
+		echo $count."입니다";
 
 
-		for ($i=0; $i < $count; $i++) { 
+		for ($i=0; $i <= $count; $i++) { 
 			# code...
-			$sql = "SELECT distinct(A.data_code), A.data_name, A.data_value,A.control, A.STATUS from 30avg_data_info A, 30avg_data_info B where A.machine_num = '".$M_num."' and A.measure_date_end = B.measure_date_end order by A.measure_date_end desc limit ".$i.",1;";
+			$sql = "SELECT (A.data_code), A.data_name, A.data_value,A.control, A.STATUS from 30avg_data_info A, 30avg_data_info B where A.machine_num = '".$M_num."' and A.measure_date_end = B.measure_date_end order by A.measure_date_end desc limit ".$i.";";
 			$result_set = mysqli_query($conn, $sql);
-			
+				$MMM = " ";
 				while ($row = mysqli_fetch_assoc($result_set)){
-				$MMM = "";
+			
      			  $MMM .= $row['data_code'].$row['data_value'].$row['STATUS'].$row['control'];
 
    }
@@ -163,5 +171,5 @@ function Send_5avg($store,$M_num){
 
                     socket_write($sock, $msg2, strlen($msg2));
     }
-    	 Send_5avg('1234','M20');
+    	Send_5avg('1234','M20');
 ?>

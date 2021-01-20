@@ -15,7 +15,7 @@
                </tr>
                <?php
                   $host = "127.0.0.1";
-                  $port = "12348";
+                  $port = "12349";
 
                   if(isset($_POST['btnSend'])){
                      $msg = $_REQUEST['txtMessage'];

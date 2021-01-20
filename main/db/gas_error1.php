@@ -78,30 +78,31 @@ include_once('simplehtmldom_1_9_1/simple_html_dom.php');
 		$result_value = mysqli_query($conn,$M_count);
 		$row_value_M = mysqli_fetch_array($result_value);
 		echo "여부?? : ";
-		echo $row_value_M['count'];
+		echo $row_value_M['count_'."$gas_code"];
 
 	if($row_value['data_value'] >= 5){	
 		
-		if($row_value_M['count'] == 0){
+		if($row_value_M['count_'."$gas_code"] == 0){
 			
 		// include_once('SendFTS_one.php');
 			echo "카카오톡 전송";
-			$update_count = "update sendMesaage set count = 1; ";
+			$update_count = "update sendMesaage set count_".$gas_code." = 1; ";
+			echo $update_count;
 			$result_value = mysqli_query($conn,$update_count);
-			$row_value_M=mysqli_fetch_array($result_value);
-			echo $row_value_M['count'];
+			//$row_value_M=mysqli_fetch_array($result_value);
+			echo $row_value_M['count_'."$gas_code"];
 		}
-		else if($row_value_M['count'] == 1){
+		else if($row_value_M['count_'."$gas_code"] == 1){
 			echo "이미 메시지를 보냄";
-			echo $row_value_M['count'];
+			echo $row_value_M['count_'."$gas_code"];
 		}
 	}
 	if($row_value['data_value'] < 5){
-			$update_count = "update sendMesaage set count = 0; ";
+			$update_count = "update sendMesaage set count_".$gas_code." = 0; ";
 			$result_value = mysqli_query($conn,$update_count);
 			//$row_value_M=mysqli_fetch_array($result_value);
 			echo "초기화12";
-			echo $row_value_M['count'];
+			echo $row_value_M['count_'."$gas_code"];
 		}
 
 } else {
@@ -335,6 +336,11 @@ include_once('simplehtmldom_1_9_1/simple_html_dom.php');
 }
 
 	 //datainfo30 avg 1
+	$count2 = "SELECT count(*) from data_info_1 where machine_num = '".$M_num."' and data_code = '".$gas_code."';";
+	$result_set = mysqli_query($conn,$count2);
+	$count2_row = mysqli_fetch_array($result_set);
+	$count2_line = $count2_row['count(*)'];
+	echo "이거 : ".$count2_line;
 
 	$count = "SELECT count(*) FROM 5avg_data_info where machine_num = '".$M_num."' and data_code = '".$gas_code."';";
 
@@ -354,7 +360,7 @@ include_once('simplehtmldom_1_9_1/simple_html_dom.php');
 		echo "<br/>";
 		echo "30분 자료를 만들 수 없습니다";
 		echo "<br/>";
-	}else if($count_line % $div_count1 == 0){
+	}else if($count_line % $div_count1 == 0 && $count2_line == 0){
 				$line = $count_line -5;
 				$data_value_avg = "SELECT avg(A.data_value) from (select r.data_value from 5avg_data_info r where machine_num='".$M_num."' and data_code = '".$gas_code."' limit ".$line.",".$div_count1.") A;";
 				$result_set2 = mysqli_query($conn, $data_value_avg);
@@ -461,8 +467,6 @@ include_once('simplehtmldom_1_9_1/simple_html_dom.php');
 	echo "<br/>"; 
     echo "New TSP 30avg data_info insert";
 
-    	include_once('sendData.php');
-    		Send_30avg('1234','M20');
     //30분데이터 결과 json으로 출력
 
     $avgSql = "SELECT * from 30avg_data_info where machine_num = '".$M_num."' and data_code = '".$gas_code."' order by measure_date_end desc limit 1;";
@@ -497,6 +501,9 @@ include_once('simplehtmldom_1_9_1/simple_html_dom.php');
 	$data_avg30_datacode = json_encode($data_avg30_1,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
 
 	 echo $data_avg30_datacode;
+
+    	include_once('sendData.php');
+    		Send_30avg('1234','M20');
 
 	  // 같은 자료가 들어오면 중복된 자료는 제거한다
 	 $sameSQL = "SELECT * from 30avg_data_info where machine_num = '".$M_num."' and data_code = '".$gas_code."' order by measure_date_end desc limit 1,1;";
