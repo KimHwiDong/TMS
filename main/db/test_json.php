@@ -84,7 +84,9 @@ include_once('simplehtmldom_1_9_1/simple_html_dom.php');
 		
 		if($row_value_M['count_'."$gas_code"] == 0){
 			
-		// include_once('SendFTS_one.php');
+		 include_once('SendFTS_one.php');
+		 echo "gas : ".$gas_code ." 기기 : ".$M_num;
+		 	
 			echo "카카오톡 전송";
 			$update_count = "update sendMesaage set count_".$gas_code." = 1; ";
 			echo $update_count;
@@ -200,7 +202,7 @@ include_once('simplehtmldom_1_9_1/simple_html_dom.php');
 		echo $final = date("YmdHis", strtotime("+1 month", $time));
 
     //1달뒤 데이터 자동 삭제
-    if ($time >= $final) {
+    if ($row4['measure_date'] >= $final) {
     	# code...
     	$delQury = "DELETE from 5avg_data_info where machine_num = '".$M_num."' and data_code = '".$gas_code."' and measure_date_start < '".$final."';";
     	mysqli_query($conn,$delQury);
@@ -272,7 +274,7 @@ include_once('simplehtmldom_1_9_1/simple_html_dom.php');
 		echo $final = date("YmdHis", strtotime("+1 month", $time));
 
     //1달뒤 데이터 자동 삭제
-    if ($time >= $final) {
+    if ( $row4['measure_date'] >= $final) {
     	# code...
     	$delQury = "DELETE from 5avg_data_info where machine_num = '".$M_num."' and data_code = '".$gas_code."' and measure_date_start < '".$final."';";
     	mysqli_query($conn,$delQury);
@@ -449,7 +451,7 @@ include_once('simplehtmldom_1_9_1/simple_html_dom.php');
 		echo $final = date("YmdHis", strtotime("+1 month", $time));
 
     //1달뒤 데이터 자동 삭제
-    if ($time >= $final) {
+    if ($row5['measure_date_start'] >= $final) {
     	# code...
     	$delQury = "DELETE from 30avg_data_info where machine_num = '".$M_num."' and data_code = '".$gas_code."' and measure_date_start < '".$final."';";
     	mysqli_query($conn,$delQury);
@@ -526,7 +528,7 @@ include_once('simplehtmldom_1_9_1/simple_html_dom.php');
 		echo $final = date("YmdHis", strtotime("+1 month", $time));
 
     //1달뒤 데이터 자동 삭제
-    if ($time >= $final) {
+    if ($row5['measure_date_start'] >= $final) {
     	# code...
     	$delQury = "DELETE from 30avg_data_info where machine_num = '".$M_num."' and data_code = '".$gas_code."' and measure_date_start < '".$final."';";
     	mysqli_query($conn,$delQury);

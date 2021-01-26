@@ -16,7 +16,7 @@
      */
 
     include 'common.php';
-
+    include 'DBMGR.php';
     // 팝빌 회원 사업자번호, "-"제외 10자리
     $testCorpNum = '2068676868';
 
@@ -30,7 +30,16 @@
     $sender = '07042587372';
 
     // 친구톡 내용, 최대 1000자
-    $content = '먼지 측정량이 오바 되었습니다.';
+    // function msg($gas_code, $M_num){
+        $check_sql = "SELECT * from data_info_1 where data_code='".$gas_code."' and machine_num = '".$M_num."' and data_value >= 5 limit 0,1;";
+        $check_result = mysqli_query($conn, $check_sql);
+        $check_row = mysqli_fetch_array($check_result);
+        $over = $check_row['data_value'] - 5;
+        echo $check_row['data_value']."qwer";
+
+         $content = "측정기기 ".$M_num."의 항목 ".$gas_code."의 값이 ".$over."만큼 초과 되었습니다";
+    // }
+    //$content = '먼지 측정량이 오바 되었습니다.';
 
     // 대체문자 내용
     $altContent = '대체문자 내용';
@@ -57,7 +66,7 @@
       $receivers[] = array(
         // 수신번호
         'rcv' => '01027820681',
-        // 수신자명
+        // 수신자명 
         'rcvnm' => '최동욱'
     );
 

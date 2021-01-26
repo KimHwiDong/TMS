@@ -100,7 +100,7 @@
       				print "DVER"."\n";
       		//socket_write($accept, $msg2, strlen($msg2)) or die ("could not write machine info");
       }
-
+//의 어떤 상태로 바꿀건가요? \n 0: 자료 채취 모드 \n 1: 자료 측정 모드
 
       	if($msg == 'SETP'){
       		$msg1 = "기기번호를 입력하세요 : ";

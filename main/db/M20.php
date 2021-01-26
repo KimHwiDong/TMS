@@ -79,6 +79,29 @@
 				# code...
 				echo "LT2 기기 꺼짐";
 
+				$insert_del = "INSERT INTO del_live_data SELECT * FROM data_info_1 where machine_num = 'M20';";
+				$del_result = mysqli_query($conn,$insert_del);
+
+				$time_sql = "SELECT * from data_info_1 where machine_num = 'M20' order by measure_date desc limit 0,1;";
+				$time_result = mysqli_query($conn, $time_sql);
+				$time_row = mysqli_fetch_array($time_result);
+				echo $time_row['measure_date'];
+
+				$date = date("Y-m-d", strtotime( $time_row['measure_date'] ) );
+				echo "<br/>";
+				echo $time = strtotime($date);
+				echo "<br/>";
+				echo $final = date("YmdHis", strtotime("+1 month", $time));
+
+				if ($time_row['measure_date'] >= $final) {
+    		# code...
+    		$delQury = "DELETE from del_live_data where machine_num = 'M20' and measure_date < '".$final."';";
+    		mysqli_query($conn,$delQury);
+    			
+    			}else{
+    				echo "string";
+    			}
+
 				$sql= "delete from data_info_1 where machine_num = 'M20'";
 				$result_set = mysqli_query($conn, $sql);
 				
