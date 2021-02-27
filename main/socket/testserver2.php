@@ -2,7 +2,7 @@
 	date_default_timezone_set('Asia/Seoul');
 	include_once('dbcon.php');
 
-	$host = "127.0.0.1";
+	$host = "192.168.0.39";
 	$port = 12349;
 	set_time_limit(0);
 
@@ -255,7 +255,7 @@
 
 				      			echo "\nmsg2 :".$msg2."\n";
 
-				      			if($msg2 != 1 && $msg2 != 2 && $msg2 = ' '){
+				      			if($msg2 != 1 && $msg2 != 2 && $msg2 == ' '){
 				      				echo "다시 입력";
 				      				$msg5 = "다시 확인 하고 입력 해 주세요";
 				      				socket_write($accept, $msg5, strlen($msg5)) or die ("could not write machine_num");		
@@ -284,11 +284,22 @@
 						echo $msg1;
 						socket_write($accept, $msg1, strlen($msg1)) or die ("could not write machine_num");
 					}
-	      			//break;
+	      			break;
 	      			}
 	      			//break;
       		}
+
+      		if($msg != 'REST' || $msg != 'DMPL' || $msg != 'CCHK' || $msg != 'SETP' || $msg != 'DMPF' || $msg != 'DMPH' || $msg != ' '){
+      			$msg2 = "없는 명령어 입니다 \n";
+      			socket_write($accept, $msg2, strlen($msg2)) or die ("could not write machine_num");
+      		}else{
+
+      			$msg2 = "없는 명령어 입니다 \n";
+      			socket_write($accept, $msg2, strlen($msg2)) or die ("could not write machine_num");
+      		}
       }while (true);
+
+
       # code...
       socket_close($accept, $sock);
 ?>

@@ -246,7 +246,7 @@ include_once('simplehtmldom_1_9_1/simple_html_dom.php');
 
 
 	
-	$D_Live_q = "DELETE from data_info_1 where machine_num = '".$M_num."' and data_code = '".$gas_code."'";
+	$D_Live_q = "DELETE from data_info_1 where machine_num = '".$M_num."' and data_code = '".$gas_code."' order by measure_date desc limit 9";
 	 if ($conn->query($D_Live_q) ==  TRUE) {
 	 	echo "5분 데이터 생성 후 실시간 자료 삭제";	
 	 }else{
